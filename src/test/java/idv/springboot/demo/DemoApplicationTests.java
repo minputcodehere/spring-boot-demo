@@ -17,7 +17,6 @@ class DemoApplicationTests {
 	void contextLoads() {
 
 		UserInfoEntity entity = svc.findById("A098765432");
-
 		System.err.println("ID >>>>" + entity.getId());
 		System.err.println("CNAME >>>>" + entity.getCName());
 		System.err.println("ENAME >>>>" + entity.getEName());
