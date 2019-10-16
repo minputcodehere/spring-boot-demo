@@ -28,8 +28,8 @@ public class WebResult {
 		return new WebResult(sts, msg, result).toString();
 	}
 
-	public static String GetSuccessResult(Object result) {
-
-		return new WebResult(0, StringUtils.EMPTY, result).toString();
-	}
+//	public static String GetSuccessResult(Object result) {
+//
+//		return new WebResult(0, StringUtils.EMPTY, result).toString();
+//	}
 }
