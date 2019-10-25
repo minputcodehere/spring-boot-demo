@@ -55,10 +55,6 @@ public class ItextTest {
 
 			this.readPdfAndFix();
 
-			// this.getResource();
-
-			// this.fillPDFContent_01();
-
 		} catch (Exception e) {
 
 			System.err.println(e.getMessage());
