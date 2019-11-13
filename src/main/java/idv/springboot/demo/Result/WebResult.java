@@ -1,18 +1,16 @@
 package idv.springboot.demo.Result;
 
-import org.apache.commons.lang3.StringUtils;
-
 import lombok.Data;
 
 @Data
 public class WebResult {
-	
+
 	private String sts;
 
 	private String msg;
 
 	private Object result;
-	
+
 	public WebResult(String sts, String msg, Object result) {
 
 		this.sts = sts;
@@ -21,7 +19,6 @@ public class WebResult {
 
 		this.result = result;
 	}
-
 
 	public static String GetResultString(String sts, String msg, Object result) {
 

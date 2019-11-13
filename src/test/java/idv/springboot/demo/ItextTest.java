@@ -263,7 +263,7 @@ public class ItextTest {
 		contentStream.setFont(font, 12);
 
 		// Setting the position for the line
-		contentStream.newLineAtOffset(100, 600);
+		contentStream.newLineAtOffset(152,1000);
 
 		// String text = "This is the sample document and we are adding content to it.";
 
