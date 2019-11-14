@@ -455,9 +455,9 @@ public class ItextTest {
 
 		contentStream.beginText();
 
-		contentStream.moveTextPositionByAmount(x, y);
+		contentStream.newLineAtOffset(x, y);
 
-		contentStream.drawString(content);
+		contentStream.showText(content);
 
 		contentStream.endText();
 	}
