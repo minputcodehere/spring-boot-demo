@@ -53,7 +53,9 @@ public class ItextTest {
 
 			// ==== 套版產生 ====
 
-			this.readPdfAndFix();
+			// this.readPdfAndFix();
+
+			this.setPosition();
 
 		} catch (Exception e) {
 
@@ -263,7 +265,7 @@ public class ItextTest {
 		contentStream.setFont(font, 12);
 
 		// Setting the position for the line
-		contentStream.newLineAtOffset(152,1000);
+		contentStream.newLineAtOffset(152, 1000);
 
 		// String text = "This is the sample document and we are adding content to it.";
 
@@ -276,6 +278,95 @@ public class ItextTest {
 		contentStream.endText();
 
 		System.out.println("Content added");
+
+		// Closing the content stream
+		contentStream.close();
+
+		// Saving the document
+		doc.save(path);
+
+		// Closing the document
+		doc.close();
+	}
+
+	/**
+	 * setPosition 文件座標
+	 * 
+	 * @throws Exception
+	 */
+	private void setPosition() throws Exception {
+
+		// String templatePath = "C:\\Users\\Min\\Desktop\\test.pdf";
+
+		String templatePath = "C:\\Users\\Min\\Desktop\\itext.pdf";
+
+		PDDocument doc = PDDocument.load(new File(templatePath));
+
+		for (int idx = 0; idx < doc.getNumberOfPages(); idx++) {
+
+			this.setPositionMark(doc, idx, true);
+
+			doc = PDDocument.load(new File(path));
+
+			this.setPositionMark(doc, idx, false);
+		}
+	}
+
+	/**
+	 * setPositionMark 位置
+	 * 
+	 * @param doc
+	 * @param pageNo
+	 * @throws Exception
+	 */
+	private void setPositionMark(PDDocument doc, int pageNo, boolean isX) throws Exception {
+
+		PDPage page = doc.getPage(pageNo);
+
+		// 內容
+		PDPageContentStream contentStream = new PDPageContentStream(doc, page, PDPageContentStream.AppendMode.APPEND,
+				true, true);
+
+		// Begin the Content stream
+		contentStream.beginText();
+
+		// Setting the font to the Content stream
+		InputStream in = new FileInputStream(
+				"C:\\Users\\Min\\Desktop\\Min\\code\\BackEnd\\spring-boot-demo\\config\\sming.ttf");
+
+		PDFont font = PDType0Font.load(doc, in, false);
+
+		contentStream.setFont(font, 5);
+
+		if (isX) {
+
+			int xnum = 10;
+
+			for (int x = 0; x < 600; x += xnum) {
+
+				// Setting the position for y
+				contentStream.newLineAtOffset(xnum, 0);
+
+				// Adding text in the form of string
+				contentStream.showText(String.valueOf(x));
+			}
+
+		} else {
+
+			int ynum = 5;
+
+			for (int y = 0; y < 1000; y += ynum) {
+
+				// Setting the position for x
+				contentStream.newLineAtOffset(0, ynum);
+
+				// Adding text in the form of string
+				contentStream.showText(y + "-");
+			}
+		}
+
+		// Ending the content stream
+		contentStream.endText();
 
 		// Closing the content stream
 		contentStream.close();
