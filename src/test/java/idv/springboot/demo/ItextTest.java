@@ -381,6 +381,12 @@ public class ItextTest {
 		doc.close();
 	}
 
+	/**
+	 * fieldPost 欄位填寫
+	 * 
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
 	private void fieldPost() throws DocumentException, IOException {
 
 		String templatePath = "C:\\Users\\Min\\Desktop\\itext.pdf";
@@ -416,19 +422,6 @@ public class ItextTest {
 		this.insertContent(contentStream, 350, 754, "中文編碼");
 
 		this.insertContent(contentStream, 350, 735, "終於通過");
-
-//		// Setting the position for the line
-//		contentStream.newLineAtOffset(152, 800);
-//
-//		// String text = "This is the sample document and we are adding content to it.";
-//
-//		String text = "中文編碼終於通過!!!!!!!!!!!!!!!!chinese test";
-//
-//		// Adding text in the form of string
-//		contentStream.showText(text);
-
-//		// Ending the content stream
-//		contentStream.endText();
 
 		System.out.println("Content added");
 
