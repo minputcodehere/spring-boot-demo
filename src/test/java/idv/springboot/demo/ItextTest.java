@@ -55,7 +55,9 @@ public class ItextTest {
 
 			// this.readPdfAndFix();
 
-			this.setPosition();
+			// this.setPosition();
+
+			this.fieldPost();
 
 		} catch (Exception e) {
 
@@ -349,6 +351,7 @@ public class ItextTest {
 
 				// Adding text in the form of string
 				contentStream.showText(String.valueOf(x));
+
 			}
 
 		} else {
@@ -376,5 +379,86 @@ public class ItextTest {
 
 		// Closing the document
 		doc.close();
+	}
+
+	private void fieldPost() throws DocumentException, IOException {
+
+		String templatePath = "C:\\Users\\Min\\Desktop\\itext.pdf";
+
+		PDDocument doc = PDDocument.load(new File(templatePath));
+
+		for (int idx = 0; idx < doc.getNumberOfPages(); idx++) {
+
+			this.multiField(doc, idx);
+		}
+	}
+
+	private void multiField(PDDocument doc, int pageNo) throws IOException {
+
+		PDPage page = doc.getPage(pageNo);
+
+		// 內容
+		PDPageContentStream contentStream = new PDPageContentStream(doc, page, PDPageContentStream.AppendMode.APPEND,
+				true, true);
+
+		// Setting the font to the Content stream
+		InputStream in = new FileInputStream(
+				"C:\\Users\\Min\\Desktop\\Min\\code\\BackEnd\\spring-boot-demo\\config\\sming.ttf");
+
+		PDFont font = PDType0Font.load(doc, in, false);
+
+		contentStream.setFont(font, 12);
+
+		this.insertContent(contentStream, 180, 754, "中文編碼");
+
+		this.insertContent(contentStream, 180, 735, "終於通過");
+
+		this.insertContent(contentStream, 350, 754, "中文編碼");
+
+		this.insertContent(contentStream, 350, 735, "終於通過");
+
+//		// Setting the position for the line
+//		contentStream.newLineAtOffset(152, 800);
+//
+//		// String text = "This is the sample document and we are adding content to it.";
+//
+//		String text = "中文編碼終於通過!!!!!!!!!!!!!!!!chinese test";
+//
+//		// Adding text in the form of string
+//		contentStream.showText(text);
+
+//		// Ending the content stream
+//		contentStream.endText();
+
+		System.out.println("Content added");
+
+		// Closing the content stream
+		contentStream.close();
+
+		// Saving the document
+		doc.save(path);
+
+		// Closing the document
+		doc.close();
+	}
+
+	/**
+	 * insertContent 寫入內容
+	 * 
+	 * @param contentStream
+	 * @param x
+	 * @param y
+	 * @param content
+	 * @throws IOException
+	 */
+	private void insertContent(PDPageContentStream contentStream, int x, int y, String content) throws IOException {
+
+		contentStream.beginText();
+
+		contentStream.moveTextPositionByAmount(x, y);
+
+		contentStream.drawString(content);
+
+		contentStream.endText();
 	}
 }
