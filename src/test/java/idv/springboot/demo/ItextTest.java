@@ -16,6 +16,8 @@ import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState;
+import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.Test;
 
 import com.itextpdf.awt.AsianFontMapper;
@@ -57,7 +59,9 @@ public class ItextTest {
 
 			// this.setPosition();
 
-			this.fieldPost();
+			// this.fieldPost();
+
+			this.waterMark();
 
 		} catch (Exception e) {
 
@@ -453,5 +457,37 @@ public class ItextTest {
 		contentStream.showText(content);
 
 		contentStream.endText();
+	}
+
+	private void waterMark() throws IOException {
+
+		File tmpPDF = new File(path);
+		PDDocument doc = PDDocument.load(new File("C:\\Users\\Min\\Desktop\\itext.pdf"));
+		doc.setAllSecurityToBeRemoved(true);
+		for (PDPage page : doc.getPages()) {
+			PDPageContentStream contentStream = new PDPageContentStream(doc, page,
+					PDPageContentStream.AppendMode.APPEND, true, true);
+			String text = "限上海商業儲蓄銀行線上開戶使用";
+			InputStream in = new FileInputStream(
+					"C:\\Users\\Min\\Desktop\\Min\\code\\BackEnd\\spring-boot-demo\\config\\sming.ttf");
+
+			PDFont font = PDType0Font.load(doc, in, false);
+			float fontSize = 40.0f;
+			PDExtendedGraphicsState state = new PDExtendedGraphicsState();
+			// 透明度
+			state.setNonStrokingAlphaConstant(0.2f);
+			state.setAlphaSourceFlag(true);
+			contentStream.setGraphicsStateParameters(state);
+			contentStream.setNonStrokingColor(200, 0, 0);// Red
+			contentStream.beginText();
+			contentStream.setFont(font, fontSize);
+			// 獲取旋轉例項
+			contentStream.setTextMatrix(Matrix.getRotateInstance(Math.toRadians(30), 40, 440));
+			contentStream.showText(text);
+			contentStream.endText();
+			contentStream.close();
+		}
+		doc.save(tmpPDF);
+		System.out.println("PDF saved to the location !!!");
 	}
 }
