@@ -459,6 +459,11 @@ public class ItextTest {
 		contentStream.endText();
 	}
 
+	/**
+	 * waterMark 字體浮水印
+	 * 
+	 * @throws IOException
+	 */
 	private void waterMark() throws IOException {
 
 		File tmpPDF = new File(path);
