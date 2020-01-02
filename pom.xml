@@ -146,6 +146,12 @@
 		</dependency>
 		<!-- itext 需 import -->
 
+		<dependency>
+			<groupId>com.google.code</groupId>
+			<artifactId>kaptcha</artifactId>
+			<version>2.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
