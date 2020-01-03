@@ -1,14 +1,19 @@
 package idv.springboot.demo;
 
-public class GenericTest<T> {
+public class GenericTest {
 
-	private T att;
+	public static void main(String[] args) throws Exception {
 
-	public void setAtt(T att) {
-		this.att = att;
-	}
+		GenericTestBean<Boolean> Att1 = new GenericTestBean<Boolean>();
 
-	public T getAtt() {
-		return att;
+		GenericTestBean<Integer> Att2 = new GenericTestBean<Integer>();
+
+		Att1.setAtt(new Boolean(true));
+		Boolean b = Att1.getAtt(); // 不需要再轉換型態
+		System.out.println(b);
+
+		Att2.setAtt(new Integer(10));
+		Integer i = Att2.getAtt(); // 不需要再轉換型態
+		System.out.println(i);
 	}
 }
